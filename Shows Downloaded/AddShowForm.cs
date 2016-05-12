@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
 using System.Windows.Forms;
 
 
@@ -14,45 +7,38 @@ namespace Shows_Downloaded
 {
     public partial class AddShowForm : Form
     {
+        public const int ONHIATUS = 0;
+        public const int CANCELLED = 1;
+        public const int DELETED = 2;
+        public const int MISSEDLASTWEEK = 3;
         public Shows changeShow = new Shows();
         public int MultiRowsShown = 0;
+        private ListViewItem item;
+        int selectedSubItem = 0;
 
         public AddShowForm()
         {
             InitializeComponent();
-            grpMultiDay.Enabled = false;
-            lblFirst.Visible = false;
-            lblSecond.Visible = false;
-            lblThird.Visible = false;
-            lblFourth.Visible = false;
-            Day1.Visible = false;
-            Day2.Visible = false;
-            Day3.Visible = false;
-            Day4.Visible = false;
-            Time1.Visible = false;
-            Time2.Visible = false;
-            Time3.Visible = false;
-            Time4.Visible = false;
-            Add1.Visible = false;
-            Add2.Visible = false;
-            Add3.Visible = false;
-            Remove2.Visible = false;
-            Remove3.Visible = false;
-            Remove4.Visible = false;
+			dateAddSeasonEnd.Value = DateTime.Now;
+			dateAddStart.Value = DateTime.Now;
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (txtAddShowName != null && cmbAddDay.SelectedIndex > -1 && cmbAddTime.SelectedIndex > -1)
+            if (txtAddShowName != null)
             {
-                if (cmbAddDay.Text.Equals("Multiple"))
+                if (chkMultipleDays.Checked == true)
                 {
                     AddMultipleShows();
                     changeShow.MultipleShowTimes = true;
                     changeShow.ShowName = txtAddShowName.Text;
                     changeShow.StartDate = dateAddStart.Value;
                     changeShow.SeasonEnd = dateAddSeasonEnd.Value;
-                    changeShow.OnHiatus = chkAddOnHiatus.Checked;
+					changeShow.SingleShowing = false;
+                    changeShow.OnHiatus = listAddCheckboxes.GetItemChecked(ONHIATUS);
+                    changeShow.ShowCancelled = listAddCheckboxes.GetItemChecked(CANCELLED);
+                    changeShow.ShowDeleted = listAddCheckboxes.GetItemChecked(DELETED);
+                    changeShow.ShowMissedLastWeek = listAddCheckboxes.GetItemChecked(MISSEDLASTWEEK);
                 }
                 else
                 {
@@ -61,7 +47,11 @@ namespace Shows_Downloaded
                     changeShow.ShowTime = cmbAddTime.Text;
                     changeShow.StartDate = dateAddStart.Value;
                     changeShow.SeasonEnd = dateAddSeasonEnd.Value;
-                    changeShow.OnHiatus = chkAddOnHiatus.Checked;
+					changeShow.SingleShowing = chkSingleShowing.Checked;
+                    changeShow.OnHiatus = listAddCheckboxes.GetItemChecked(ONHIATUS);
+                    changeShow.ShowCancelled = listAddCheckboxes.GetItemChecked(CANCELLED);
+                    changeShow.ShowDeleted = listAddCheckboxes.GetItemChecked(DELETED);
+                    changeShow.ShowMissedLastWeek = listAddCheckboxes.GetItemChecked(MISSEDLASTWEEK);
                 }
             }
             this.DialogResult = DialogResult.OK;
@@ -91,136 +81,103 @@ namespace Shows_Downloaded
             cmbAddTime.SelectedIndex = timeindex;
             dateAddStart.Value = tempShow.StartDate;
             dateAddSeasonEnd.Value = tempShow.SeasonEnd;
-            chkAddOnHiatus.Checked = tempShow.OnHiatus;
-        }
+			chkSingleShowing.Checked = tempShow.SingleShowing;
 
-        private void Add1_Click(object sender, EventArgs e)
-        {
-            lblSecond.Visible = true;
-            Day2.Visible = true;
-            Time2.Visible = true;
-            Add2.Visible = true;
-            Remove2.Visible = true;
-            MultiRowsShown = 2;
-        }
-
-        private void Add2_Click(object sender, EventArgs e)
-        {
-            lblThird.Visible = true;
-            Day3.Visible = true;
-            Time3.Visible = true;
-            Add3.Visible = true;
-            Remove3.Visible = true;
-            MultiRowsShown = 3;
-        }
-
-        private void Add3_Click(object sender, EventArgs e)
-        {
-            lblFourth.Visible = true;
-            Day4.Visible = true;
-            Time4.Visible = true;
-            Remove4.Visible = true;
-            MultiRowsShown = 4;
-        }
-
-        private void Remove2_Click(object sender, EventArgs e)
-        {
-            if (MultiRowsShown == 2)
+            listAddCheckboxes.SetItemChecked(ONHIATUS, tempShow.OnHiatus);
+            listAddCheckboxes.SetItemChecked(CANCELLED, tempShow.ShowCancelled);
+            listAddCheckboxes.SetItemChecked(DELETED, tempShow.ShowDeleted);
+            listAddCheckboxes.SetItemChecked(MISSEDLASTWEEK, tempShow.ShowMissedLastWeek);
+            if(tempShow.MultipleShowTimes == true)
             {
-                lblSecond.Visible = false;
-                Day2.Visible = false;
-                Time2.Visible = false;
-                Add2.Visible = false;
-                Remove2.Visible = false;
-                MultiRowsShown = 1;
-            }
-        }
-
-        private void Remove3_Click(object sender, EventArgs e)
-        {
-            if (MultiRowsShown == 3)
-            {
-                lblThird.Visible = false;
-                Day3.Visible = false;
-                Time3.Visible = false;
-                Add3.Visible = false;
-                Remove3.Visible = false;
-                MultiRowsShown = 2;
-            }
-        }
-
-        private void Remove4_Click(object sender, EventArgs e)
-        {
-            if (MultiRowsShown == 4)
-            {
-                lblFourth.Visible = false;
-                Day4.Visible = false;
-                Time4.Visible = false;
-                Remove4.Visible = false;
-                MultiRowsShown = 3;
-            }
-        }
-
-        private void cmbAddDay_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbAddDay.Text.Equals("Multiple"))
-            {
-                grpMultiDay.Enabled = true;
-                lblFirst.Visible = true;
-                Day1.Visible = true;
-                Time1.Visible = true;
-                Add1.Visible = true;
-                MultiRowsShown = 1;
-            }
-            else
-            {
-                grpMultiDay.Enabled = false;
-                lblFirst.Visible = false;
-                lblSecond.Visible = false;
-                lblThird.Visible = false;
-                lblFourth.Visible = false;
-                Day1.Visible = false;
-                Day2.Visible = false;
-                Day3.Visible = false;
-                Day4.Visible = false;
-                Time1.Visible = false;
-                Time2.Visible = false;
-                Time3.Visible = false;
-                Time4.Visible = false;
-                Add1.Visible = false;
-                Add2.Visible = false;
-                Add3.Visible = false;
-                Remove2.Visible = false;
-                Remove3.Visible = false;
-                Remove4.Visible = false;
-                MultiRowsShown = 0;
+                for(int x = 0; x < tempShow.MultiDays.Count(); x++)
+                {
+                    listMultipleShows.Items.Add(new ListViewItem(new string[] { tempShow.MultiDays[x], tempShow.MultiTimes[x] }));
+                }
+                chkMultipleDays.Checked = true;
+                cmbAddDay.Enabled = false;
+                cmbAddTime.Enabled = false;
             }
         }
 
         public void AddMultipleShows()
         {
-            for(int x = 0; x < MultiRowsShown; x++)
+            ListViewItem item;
+            for (int x = 0; x < AddRowsToAddToList.Value; x++)
             {
-                if(x == 0)
-                {
-                    changeShow.MultiDays[x] = Day1.Text;
-                    changeShow.MultiTimes[x] = Time1.Text;
-                }
-                if(x == 1)
-                {
-                    changeShow.MultiDays[x] = Day2.Text;
-                    changeShow.MultiTimes[x] = Time2.Text;
-                }
-                if (x == 2)
-                {
-                    changeShow.MultiDays[x] = Day3.Text;
-                    changeShow.MultiTimes[x] = Time3.Text;
-                }
-                if (x == 3)
-                {
-                    changeShow.MultiDays[x] = Day4.Text;
-                    changeShow.MultiTimes[x] = Time4.Text;
-                }
+                item = listMultipleShows.Items[x];
+                changeShow.MultiDays[x] = item.Text;
+                changeShow.MultiTimes[x] = item.SubItems[1].Text;
+            }
+            changeShow.MultiShowCount = Convert.ToInt32(AddRowsToAddToList.Value);
+        }
+
+        private void cmbHiddenBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13 || e.KeyChar == 27)
+            {
+                cmbHiddenBox.Hide();
+            }
+        }
+
+        private void cmbHiddenBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int i = cmbHiddenBox.SelectedIndex;
+            if (i >= 0)
+            {
+                string str = cmbHiddenBox.Items[i].ToString();
+                if (selectedSubItem == 1) item.SubItems[selectedSubItem].Text = str;
+                else item.Text = str;
+            }
+        }
+
+        private void cmbHiddenBox_Leave(object sender, EventArgs e)
+        {
+            cmbHiddenBox.Hide();
+        }
+
+        private void listMultipleShows_SubItemClicked(object sender, ListViewEx.SubItemEventArgs e)
+        {
+            string[] strDays = new string[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+            string[] strTimes = new string[] { "7:00", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00" };
+
+            item = e.Item;
+            selectedSubItem = e.SubItem;
+//            Console.WriteLine("Item {0}  SubItem {1}", e.Item, e.SubItem);
+            cmbHiddenBox.Items.Clear();
+            if (e.SubItem == 0) cmbHiddenBox.Items.AddRange(strDays);
+            else cmbHiddenBox.Items.AddRange(strTimes);
+
+            listMultipleShows.StartEditing(cmbHiddenBox, e.Item, e.SubItem);
+        }
+
+        private void chkMultipleDays_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkMultipleDays.Checked == true)
+            {
+                cmbAddDay.Enabled = false;
+                cmbAddTime.Enabled = false;
+                listMultipleShows.Enabled = true;
+                listMultipleShows.Items.Add(new ListViewItem(new string[] { "Monday", "7:00" }));
+                listMultipleShows.Items.Add(new ListViewItem(new string[] { "Tuesday", "7:00" }));
+            }
+            else
+            {
+                cmbAddDay.Enabled = true;
+                cmbAddTime.Enabled = true;
+                listMultipleShows.Items.Clear();
+                listMultipleShows.Enabled = false;
+            }
+        }
+
+        private void AddRowsToAddToList_ValueChanged(object sender, EventArgs e)
+        {
+            if(listMultipleShows.Items.Count < AddRowsToAddToList.Value)
+            {
+                listMultipleShows.Items.Add(new ListViewItem(new string[] { "Monday", "7:00" }));
+            }
+            else
+            {
+                listMultipleShows.Items.RemoveAt(listMultipleShows.Items.Count - 1);
             }
         }
     }

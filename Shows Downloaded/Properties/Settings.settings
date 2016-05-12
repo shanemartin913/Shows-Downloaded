@@ -42,5 +42,17 @@
     <Setting Name="ColorMissedWeek" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">HotPink</Value>
     </Setting>
+    <Setting Name="OnlyShowNotDownloaded" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DatabaseLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\\FREENAS\GroupServer\Projects\Shows To Download.accdb</Value>
+    </Setting>
+    <Setting Name="LogLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\\FREENAS\GroupServer\Projects\Shows To Download.log</Value>
+    </Setting>
+    <Setting Name="KeepLog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

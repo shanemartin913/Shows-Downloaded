@@ -64,14 +64,17 @@
             this.ribbonShowCancelled = new System.Windows.Forms.RibbonCheckBox();
             this.ribbonShowOnHiatus = new System.Windows.Forms.RibbonCheckBox();
             this.ribbonShowSkipWeek = new System.Windows.Forms.RibbonCheckBox();
+            this.ribbonOnlyShowNotDownloaded = new System.Windows.Forms.RibbonCheckBox();
             this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
             this.ribbonAddShow = new System.Windows.Forms.RibbonButton();
             this.ribbonModifyShow = new System.Windows.Forms.RibbonButton();
             this.ribbonDelete = new System.Windows.Forms.RibbonButton();
             this.ribbonPanel4 = new System.Windows.Forms.RibbonPanel();
             this.ribbonClearChecks = new System.Windows.Forms.RibbonButton();
+            this.ribbonPanel5 = new System.Windows.Forms.RibbonPanel();
+            this.ribbonSettings = new System.Windows.Forms.RibbonButton();
+            this.ribbonAbout = new System.Windows.Forms.RibbonButton();
             this.ribbonSeparator1 = new System.Windows.Forms.RibbonSeparator();
-            this.ribbonOrbMenuItem1 = new System.Windows.Forms.RibbonOrbMenuItem();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.colorMissedWeek = new System.Windows.Forms.Label();
@@ -86,6 +89,8 @@
             this.notdownloadColorPicker = new System.Windows.Forms.ColorDialog();
             this.listselectiontimer = new System.Windows.Forms.Timer(this.components);
             this.missedweekColorPicker = new System.Windows.Forms.ColorDialog();
+            this.ribbonOrbMenuItem1 = new System.Windows.Forms.RibbonOrbMenuItem();
+            this.ribbonShowLog = new System.Windows.Forms.RibbonButton();
             this.groupBox1.SuspendLayout();
             this.listmenu.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -98,7 +103,7 @@
             this.groupBox1.Controls.Add(this.listShow);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cmbDayofWeek);
-            this.groupBox1.Location = new System.Drawing.Point(13, 112);
+            this.groupBox1.Location = new System.Drawing.Point(13, 134);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(974, 397);
             this.groupBox1.TabIndex = 0;
@@ -353,7 +358,7 @@
             // 
             this.showRibbon.QuickAcessToolbar.Enabled = false;
             this.showRibbon.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
-            this.showRibbon.Size = new System.Drawing.Size(999, 106);
+            this.showRibbon.Size = new System.Drawing.Size(999, 128);
             this.showRibbon.TabIndex = 3;
             this.showRibbon.Tabs.Add(this.ribbonTab1);
             this.showRibbon.TabsMargin = new System.Windows.Forms.Padding(12, 2, 20, 0);
@@ -366,6 +371,7 @@
             this.ribbonTab1.Panels.Add(this.ribbonPanel2);
             this.ribbonTab1.Panels.Add(this.ribbonPanel3);
             this.ribbonTab1.Panels.Add(this.ribbonPanel4);
+            this.ribbonTab1.Panels.Add(this.ribbonPanel5);
             this.ribbonTab1.Text = "";
             // 
             // ribbonPanel1
@@ -408,6 +414,8 @@
             this.ribbonPanel2.Items.Add(this.ribbonShowCancelled);
             this.ribbonPanel2.Items.Add(this.ribbonShowOnHiatus);
             this.ribbonPanel2.Items.Add(this.ribbonShowSkipWeek);
+            this.ribbonPanel2.Items.Add(this.ribbonOnlyShowNotDownloaded);
+            this.ribbonPanel2.Items.Add(this.ribbonShowLog);
             this.ribbonPanel2.Text = "View";
             // 
             // ribbonShowCancelled
@@ -425,8 +433,14 @@
             this.ribbonShowSkipWeek.Text = "Show Skipped Shows";
             this.ribbonShowSkipWeek.CheckBoxCheckChanged += new System.EventHandler(this.ribbonShowSkipWeek_CheckBoxCheckChanged);
             // 
+            // ribbonOnlyShowNotDownloaded
+            // 
+            this.ribbonOnlyShowNotDownloaded.Text = "Only Show Not Downloaded";
+            this.ribbonOnlyShowNotDownloaded.CheckBoxCheckChanged += new System.EventHandler(this.ribbonOnlyShowNotDownloaded_CheckBoxCheckChanged);
+            // 
             // ribbonPanel3
             // 
+            this.ribbonPanel3.ButtonMoreVisible = false;
             this.ribbonPanel3.Items.Add(this.ribbonAddShow);
             this.ribbonPanel3.Items.Add(this.ribbonModifyShow);
             this.ribbonPanel3.Items.Add(this.ribbonDelete);
@@ -458,6 +472,7 @@
             // 
             // ribbonPanel4
             // 
+            this.ribbonPanel4.ButtonMoreVisible = false;
             this.ribbonPanel4.Items.Add(this.ribbonClearChecks);
             this.ribbonPanel4.Text = "Checks";
             // 
@@ -468,12 +483,27 @@
             this.ribbonClearChecks.Text = "Clear Checks";
             this.ribbonClearChecks.Click += new System.EventHandler(this.ribbonClearChecks_Click);
             // 
-            // ribbonOrbMenuItem1
+            // ribbonPanel5
             // 
-            this.ribbonOrbMenuItem1.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
-            this.ribbonOrbMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem1.Image")));
-            this.ribbonOrbMenuItem1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem1.SmallImage")));
-            this.ribbonOrbMenuItem1.Text = "ribbonOrbMenuItem1";
+            this.ribbonPanel5.ButtonMoreEnabled = false;
+            this.ribbonPanel5.ButtonMoreVisible = false;
+            this.ribbonPanel5.Items.Add(this.ribbonSettings);
+            this.ribbonPanel5.Items.Add(this.ribbonAbout);
+            this.ribbonPanel5.Text = "Tools";
+            // 
+            // ribbonSettings
+            // 
+            this.ribbonSettings.Image = ((System.Drawing.Image)(resources.GetObject("ribbonSettings.Image")));
+            this.ribbonSettings.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonSettings.SmallImage")));
+            this.ribbonSettings.Text = "Settings";
+            this.ribbonSettings.Click += new System.EventHandler(this.ribbonSettings_Click);
+            // 
+            // ribbonAbout
+            // 
+            this.ribbonAbout.Image = ((System.Drawing.Image)(resources.GetObject("ribbonAbout.Image")));
+            this.ribbonAbout.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonAbout.SmallImage")));
+            this.ribbonAbout.Text = "About";
+            this.ribbonAbout.Click += new System.EventHandler(this.ribbonAbout_Click);
             // 
             // groupBox2
             // 
@@ -591,6 +621,20 @@
             this.missedweekColorPicker.FullOpen = true;
             this.missedweekColorPicker.SolidColorOnly = true;
             // 
+            // ribbonOrbMenuItem1
+            // 
+            this.ribbonOrbMenuItem1.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.ribbonOrbMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem1.Image")));
+            this.ribbonOrbMenuItem1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem1.SmallImage")));
+            this.ribbonOrbMenuItem1.Text = "ribbonOrbMenuItem1";
+            // 
+            // ribbonShowLog
+            // 
+            this.ribbonShowLog.Image = ((System.Drawing.Image)(resources.GetObject("ribbonShowLog.Image")));
+            this.ribbonShowLog.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonShowLog.SmallImage")));
+            this.ribbonShowLog.Text = "Show Log";
+            this.ribbonShowLog.Click += new System.EventHandler(this.ribbonShowLog_Click);
+            // 
             // ShowsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -662,6 +706,11 @@
         private System.Windows.Forms.ColorDialog missedweekColorPicker;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem listmenuClearMissedWeek;
+        private System.Windows.Forms.RibbonCheckBox ribbonOnlyShowNotDownloaded;
+		private System.Windows.Forms.RibbonPanel ribbonPanel5;
+		private System.Windows.Forms.RibbonButton ribbonSettings;
+		private System.Windows.Forms.RibbonButton ribbonAbout;
+        private System.Windows.Forms.RibbonButton ribbonShowLog;
     }
 }
 

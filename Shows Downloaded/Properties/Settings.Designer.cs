@@ -140,5 +140,53 @@ namespace Shows_Downloaded.Properties {
                 this["ColorMissedWeek"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OnlyShowNotDownloaded {
+            get {
+                return ((bool)(this["OnlyShowNotDownloaded"]));
+            }
+            set {
+                this["OnlyShowNotDownloaded"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\FREENAS\\GroupServer\\Projects\\Shows To Download.accdb")]
+        public string DatabaseLocation {
+            get {
+                return ((string)(this["DatabaseLocation"]));
+            }
+            set {
+                this["DatabaseLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\FREENAS\\GroupServer\\Projects\\Shows To Download.log")]
+        public string LogLocation {
+            get {
+                return ((string)(this["LogLocation"]));
+            }
+            set {
+                this["LogLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool KeepLog {
+            get {
+                return ((bool)(this["KeepLog"]));
+            }
+            set {
+                this["KeepLog"] = value;
+            }
+        }
     }
 }

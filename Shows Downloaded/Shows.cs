@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using System.Threading.Tasks;
 
 namespace Shows_Downloaded
@@ -24,25 +25,39 @@ namespace Shows_Downloaded
         public int DayIndex { get; set; }
         public double TimeIndex { get; set; }
         public bool MultipleShowTimes { get; set; }
+        public bool DoNotSave { get; set; }
+        public bool ChangesMade { get; set; }
+		public bool MultipleShow { get; set; }
 
-        public string[] MultiDays;
-        public string[] MultiTimes;
-        public int MultipleShowID { get; set; }
+        public string[] MultiDays = new string[10];
+        public string[] MultiTimes = new string[10];
+        public int MultiShowCount { get; set; }
+        public string MultipleShowID { get; set; }
+		public bool SingleShowing { get; set; }
+    }
 
-        public bool Equals(Shows other)
-        {
-            if (!this.ShowName.Equals(other.ShowName)) return false;
-            if (!this.ShowDay.Equals(other.ShowDay)) return false;
-            if (this.ShowTime != other.ShowTime) return false;
-            if (this.Downloaded != other.Downloaded) return false;
-            if (this.SkipWeek != other.SkipWeek) return false;
-            if (this.OnHiatus != other.OnHiatus) return false;
-            if (!this.ShowTime.Equals(other.ShowTime)) return false;
-            if (this.ShowCancelled != other.ShowCancelled) return false;
-            if (this.ShowDeleted != other.ShowDeleted) return false;
+	public class AppSettings
+	{
+		public bool ShowOnHiatus { get; set; }
+		public bool ShowCancelled { get; set; }
+		public string ListColumnSizes { get; set; }
+        public string LogColumnSizes { get; set; }
+		public bool ShowSkippedWeek { get; set; }
+		public Color ColorDownloaded { get; set; }
+		public Color ColorSkipped { get; set; }
+		public Color ColorNotDownloaded { get; set; }
+		public Color ColorMissedWeek { get; set; }
+		public bool OnlyShowNotDownloaded { get; set; }
+		public string DatabaseLocation { get; set; }
+		public string LogFileLocation { get; set; }
+		public bool KeepLog { get; set; }
+		public bool LogToDatabase { get; set; }
+		public int DatabaseID { get; set; }
+	}
 
-            return true;
-        }
-
+    public class Logs
+    {
+        public DateTime LogDate;
+        public string Status;
     }
 }

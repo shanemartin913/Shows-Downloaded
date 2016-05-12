@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shows Downloaded", "Shows Downloaded\Shows Downloaded.csproj", "{A77F9435-B2D9-4E16-8943-BBF7C76FB428}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlacialList", "..\GlacialListSource13\ListView\GlacialList.csproj", "{BF45E961-C4A7-4634-8C9C-702AA94B009A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListViewEx", "..\ListViewEx\ListViewEx.csproj", "{35A5C415-0906-4AC7-B0F6-FE3CCA884AD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{A77F9435-B2D9-4E16-8943-BBF7C76FB428}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A77F9435-B2D9-4E16-8943-BBF7C76FB428}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A77F9435-B2D9-4E16-8943-BBF7C76FB428}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF45E961-C4A7-4634-8C9C-702AA94B009A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF45E961-C4A7-4634-8C9C-702AA94B009A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF45E961-C4A7-4634-8C9C-702AA94B009A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF45E961-C4A7-4634-8C9C-702AA94B009A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35A5C415-0906-4AC7-B0F6-FE3CCA884AD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35A5C415-0906-4AC7-B0F6-FE3CCA884AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35A5C415-0906-4AC7-B0F6-FE3CCA884AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35A5C415-0906-4AC7-B0F6-FE3CCA884AD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
